@@ -42,20 +42,21 @@ public class CMIS242PRJ3FeighnerW {
       Shape.count++;
     } // end constructor
 
-    /* // setColor method
-    public void setColor(Graphics graphics){
-      this.color = graphics.getColor();
-    } // end setColor */
-
-    // getSolid method
-
     public static int getNoOfShapes() {
       return count;
     } // end getNoOfShapes()
 
-    public boolean getSolid() {
-      return isSolid;
-    } // end getSolid
+   /* // setColor method
+    public void setColor(Graphics graphic) {
+
+      this.color = graphics.getColor();
+    } // end setColor*/
+
+    // getSolid method
+    public boolean getSolid(Shape shape) {
+      return this.isSolid;
+    } // end get solid
+
 
     // draw method for parameters of graphic object
     public abstract void draw(Graphics graphics);
@@ -68,14 +69,12 @@ public class CMIS242PRJ3FeighnerW {
     // constructor
     public Oval(Rectangle rectangle, Color color, boolean isSolid) {
       super(rectangle, color, isSolid);
-
     } // end constructor
 
 
     @Override
     public void draw(Graphics graphics) {
-      // draw the oval shape
-
+      graphics.drawOval(this.x, this.y, this.width, this.height);
     } // end draw method
 
   } // end oval class
@@ -91,7 +90,7 @@ public class CMIS242PRJ3FeighnerW {
     // override for drawing rectangle
     @Override
     public void draw(Graphics graphics) {
-      // draw the rectangular shape.
+      graphics.drawRect(this.x, this.y, this.width, this.height);
     }// end drawing
 
   } // end class Rectangular
@@ -102,6 +101,10 @@ public class CMIS242PRJ3FeighnerW {
     // declare attributes
     private Shape shape;
 
+    public Drawing(Shape shape) {
+      this.shape = shape;
+    }
+
     // TODO draw the number of shapes that have been created
     //  thus far in the upper left corner
 
@@ -111,6 +114,7 @@ public class CMIS242PRJ3FeighnerW {
 
       // draw shape of graphics
       super.paintComponent(graphics);
+
       // checking of the shape is null
     } // end paintComponent method
 
@@ -123,8 +127,7 @@ public class CMIS242PRJ3FeighnerW {
 
     // drawShape method
     public void drawShape(Shape shape) throws OutsideBounds {
-      // checking boundaries
-
+if ()
       // repainting the shape
       repaint();
     } // end drawShape
@@ -133,11 +136,38 @@ public class CMIS242PRJ3FeighnerW {
 
   // OutsideBounds class
   public static class OutsideBounds extends Exception {
-    // define checked exceptions through extension
+    public OutsideBounds(JFrame frame, String error) {
+      JOptionPane.showMessageDialog(frame, error, "Error", JOptionPane.ERROR_MESSAGE);
+    } // end constructor
+
   } // end OutsideBounds class
 
   // ProgramCore class
   static class ProgramCore extends JFrame {
+
+    private JButton clearFieldsButton;
+    private JComboBox<String> colorComboBox;
+    private JLabel colorLabel;
+    private JPanel displayPanel;
+    private JButton drawButton;
+    private JPanel drawButtonPanel;
+    private JPanel drawPanel;
+    private JButton exitButton;
+    private JComboBox<String> fillTypeComboBox;
+    private JLabel fillTypeLabel;
+    private JTextField heightInput;
+    private JLabel heightLabel;
+    private JPanel optionPanel;
+    private JLabel shapeCountLabel;
+    private JComboBox<String> shapeTypeComboBox;
+    private JLabel shapeTypeLabel;
+    private JPanel upperPanel;
+    private JTextField widthInput;
+    private JLabel widthLabel;
+    private JTextField xCoordInput;
+    private JLabel xCoordLabel;
+    private JTextField yCoordInput;
+    private JLabel yCoordLabel;
 
     public ProgramCore() {
       initComponents();
@@ -145,29 +175,29 @@ public class CMIS242PRJ3FeighnerW {
 
     private void initComponents() {
 
-      JPanel displayPanel = new JPanel();
-      JPanel upperPanel = new JPanel();
-      JPanel optionPanel = new JPanel();
-      JLabel shapeTypeLabel = new JLabel();
-      JComboBox<String> shapeTypeComboBox = new JComboBox<>();
-      JLabel fillTypeLabel = new JLabel();
-      JComboBox<String> fillTypeComboBox = new JComboBox<>();
-      JLabel colorLabel = new JLabel();
-      JComboBox<String> colorComboBox = new JComboBox<>();
-      JLabel widthLabel = new JLabel();
-      JTextField widthInput = new JTextField();
-      JLabel heightLabel = new JLabel();
-      JTextField heightInput = new JTextField();
-      JLabel xCoordLabel = new JLabel();
-      JTextField xCoordInput = new JTextField();
-      JLabel yCoordLabel = new JLabel();
-      JTextField yCoordInput = new JTextField();
-      Drawing drawPanel = new Drawing();
-      JLabel shapeCountLabel = new JLabel();
-      JPanel drawButtonPanel = new JPanel();
-      JButton clearFieldsButton = new JButton();
-      JButton drawButton = new JButton();
-      JButton exitButton = new JButton();
+      displayPanel = new JPanel();
+      upperPanel = new JPanel();
+      optionPanel = new JPanel();
+      shapeTypeLabel = new JLabel();
+      shapeTypeComboBox = new JComboBox<>();
+      fillTypeLabel = new JLabel();
+      fillTypeComboBox = new JComboBox<>();
+      colorLabel = new JLabel();
+      colorComboBox = new JComboBox<>();
+      widthLabel = new JLabel();
+      widthInput = new JTextField();
+      heightLabel = new JLabel();
+      heightInput = new JTextField();
+      xCoordLabel = new JLabel();
+      xCoordInput = new JTextField();
+      yCoordLabel = new JLabel();
+      yCoordInput = new JTextField();
+      drawPanel = new JPanel();
+      shapeCountLabel = new JLabel();
+      drawButtonPanel = new JPanel();
+      clearFieldsButton = new JButton();
+      drawButton = new JButton();
+      exitButton = new JButton();
 
       setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
       getContentPane().setLayout(new GridLayout());
@@ -185,33 +215,21 @@ public class CMIS242PRJ3FeighnerW {
       optionPanel.add(shapeTypeLabel);
 
       shapeTypeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Oval", "Rectangle"}));
-      shapeTypeComboBox.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          shapeTypeComboBoxActionPerformed(evt);
-        }
-      });
+
       optionPanel.add(shapeTypeComboBox);
 
       fillTypeLabel.setText(" Fill Type");
       optionPanel.add(fillTypeLabel);
 
       fillTypeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Solid", "Hollow"}));
-      fillTypeComboBox.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          fillTypeComboBoxActionPerformed(evt);
-        }
-      });
+
       optionPanel.add(fillTypeComboBox);
 
       colorLabel.setText(" Color");
       optionPanel.add(colorLabel);
 
       colorComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Black", "Red", "Orange", "Yellow", "Green", "Blue", "Magenta"}));
-      colorComboBox.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent evt) {
-          colorComboBoxActionPerformed(evt);
-        }
-      });
+
       optionPanel.add(colorComboBox);
 
       widthLabel.setText(" Width");
@@ -243,9 +261,9 @@ public class CMIS242PRJ3FeighnerW {
 
       drawPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Shape Drawing"));
       drawPanel.setMinimumSize(new Dimension(200, 200));
-      drawPanel.setName("Shape Drawing"); // NOI18N
       drawPanel.setRequestFocusEnabled(false);
       drawPanel.setLayout(new BoxLayout(drawPanel, BoxLayout.PAGE_AXIS));
+      drawPanel.setPreferredSize(drawPanel.getPreferredSize());
 
       shapeCountLabel.setText("   Shapes: 0");
       drawPanel.add(shapeCountLabel);
@@ -289,24 +307,90 @@ public class CMIS242PRJ3FeighnerW {
       pack();
     }
 
-    private void shapeTypeComboBoxActionPerformed(ActionEvent evt) {
-      // TODO add your handling code here:
-    }
-
-    private void fillTypeComboBoxActionPerformed(ActionEvent evt) {
-      // TODO add your handling code here:
-    }
-
-    private void colorComboBoxActionPerformed(ActionEvent evt) {
-      // TODO add your handling code here:
-    }
 
     private void clearFieldsButtonActionPerformed(ActionEvent evt) {
-      // TODO add your handling code here:
+      yCoordInput.setText("0");
+      xCoordInput.setText("0");
+      widthInput.setText("0");
+      heightInput.setText("0");
+      widthInput.requestFocus();
     }
 
     private void drawButtonActionPerformed(ActionEvent evt) {
       // TODO add your handling code here:
+
+      // check inputs, then create rectangle object
+      int xCoord = 0;
+      int yCoord = 0;
+      int width = 0;
+      int height = 0;
+      Color color = Color.black;
+      boolean isSolid;
+
+      try {
+        xCoord = Integer.parseInt(xCoordInput.getText());
+      } catch (NumberFormatException numberFormatException) {
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        xCoordInput.setText("0");
+        xCoordInput.requestFocus();
+      } // end xcoord validate
+
+      try {
+        yCoord = Integer.parseInt(yCoordInput.getText());
+      } catch (NumberFormatException numberFormatException) {
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        yCoordInput.setText("0");
+        yCoordInput.requestFocus();
+      } // end ycoord validate
+
+      try {
+        width = Integer.parseInt(widthInput.getText());
+      } catch (NumberFormatException numberFormatException) {
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        widthInput.setText("0");
+        widthInput.requestFocus();
+      } // end width validate
+
+      try {
+        height = Integer.parseInt(heightInput.getText());
+      } catch (NumberFormatException numberFormatException) {
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        heightInput.setText("0");
+        heightInput.requestFocus();
+      } // end height validate
+
+      // get shape parameters
+      switch (colorComboBox.getItemAt(colorComboBox.getSelectedIndex())) {
+        case "Black":
+          color = Color.black;
+        case "Red":
+          color = Color.red;
+        case "Orange":
+          color = Color.orange;
+        case "Yellow":
+          color = Color.yellow;
+        case "Green":
+          color = Color.green;
+        case "Blue":
+          color = Color.blue;
+        case "Magenta":
+          color = Color.magenta;
+      } // end color switch
+
+      if (fillTypeComboBox.getItemAt(fillTypeComboBox.getSelectedIndex()).equals("Solid")) {
+        isSolid = true;
+      } else {
+        isSolid = false;
+      }
+      Rectangle rectangle = new Rectangle(xCoord, yCoord, width, height);
+
+      if (shapeTypeComboBox.getItemAt(shapeTypeComboBox.getSelectedIndex()).equals("Oval")) {
+        Oval oval = new Oval(rectangle, color, isSolid);
+        oval.draw();
+      } else {
+        Rectangular rectangular = new Rectangular(rectangle, color, isSolid);
+      }
+
     }
 
     private void exitButtonActionPerformed(ActionEvent evt) {
