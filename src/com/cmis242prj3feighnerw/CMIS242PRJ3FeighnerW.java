@@ -282,9 +282,8 @@ public class CMIS242PRJ3FeighnerW {
       shapeCountLabel.setText("   Shapes: 0");
       drawPanel.add(shapeCountLabel);
 
-      centeringPanel.setLayout(new FlowLayout());
-      centeringPanel.add(drawPanel);
-      upperPanel.add(centeringPanel);
+
+      upperPanel.add(drawPanel);
 
       displayPanel.add(upperPanel);
 
@@ -346,7 +345,7 @@ public class CMIS242PRJ3FeighnerW {
         xCoord = Integer.parseInt(xCoordInput.getText());
       } catch (NumberFormatException numberFormatException) {
         Shape.count--;
-        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer in the input field", "Error", JOptionPane.ERROR_MESSAGE);
         xCoordInput.setText("0");
         xCoordInput.requestFocus();
       } // end xcoord validate
@@ -355,7 +354,7 @@ public class CMIS242PRJ3FeighnerW {
         yCoord = Integer.parseInt(yCoordInput.getText());
       } catch (NumberFormatException numberFormatException) {
         Shape.count--;
-        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer in the input field", "Error", JOptionPane.ERROR_MESSAGE);
         yCoordInput.setText("0");
         yCoordInput.requestFocus();
       } // end ycoord validate
@@ -364,7 +363,7 @@ public class CMIS242PRJ3FeighnerW {
         width = Integer.parseInt(widthInput.getText());
       } catch (NumberFormatException numberFormatException) {
         Shape.count--;
-        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer in the input field", "Error", JOptionPane.ERROR_MESSAGE);
         widthInput.setText("0");
         widthInput.requestFocus();
       } // end width validate
@@ -373,7 +372,7 @@ public class CMIS242PRJ3FeighnerW {
         height = Integer.parseInt(heightInput.getText());
       } catch (NumberFormatException numberFormatException) {
         Shape.count--;
-        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(displayPanel, "Please enter an integer in the input field", "Error", JOptionPane.ERROR_MESSAGE);
         heightInput.setText("0");
         heightInput.requestFocus();
       } // end height validate
