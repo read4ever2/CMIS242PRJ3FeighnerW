@@ -180,6 +180,7 @@ public class CMIS242PRJ3FeighnerW {
     private JLabel xCoordLabel;
     private JTextField yCoordInput;
     private JLabel yCoordLabel;
+    private JPanel centeringPanel;
 
     public ProgramCore() {
       initComponents();
@@ -188,6 +189,7 @@ public class CMIS242PRJ3FeighnerW {
     private void initComponents() {
 
       displayPanel = new JPanel();
+      centeringPanel = new JPanel();
       upperPanel = new JPanel();
       optionPanel = new JPanel();
       shapeTypeLabel = new JLabel();
@@ -217,8 +219,8 @@ public class CMIS242PRJ3FeighnerW {
       displayPanel.setMinimumSize(new Dimension(200, 200));
       displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 
-      upperPanel.setMinimumSize(new Dimension(600, 300));
-      upperPanel.setPreferredSize(new Dimension(600, 300));
+      upperPanel.setMinimumSize(new Dimension(450, 210));
+      upperPanel.setPreferredSize(new Dimension(450, 210));
       upperPanel.setLayout(new GridLayout(1, 2));
 
       optionPanel.setLayout(new GridLayout(7, 2, 5, 5));
@@ -280,7 +282,9 @@ public class CMIS242PRJ3FeighnerW {
       shapeCountLabel.setText("   Shapes: 0");
       drawPanel.add(shapeCountLabel);
 
-      upperPanel.add(drawPanel);
+      centeringPanel.setLayout(new FlowLayout());
+      centeringPanel.add(drawPanel);
+      upperPanel.add(centeringPanel);
 
       displayPanel.add(upperPanel);
 
@@ -329,7 +333,6 @@ public class CMIS242PRJ3FeighnerW {
     }
 
     private void drawButtonActionPerformed(ActionEvent evt) {
-      // TODO add your handling code here:
 
       // check inputs, then create rectangle object
       int xCoord = 0;
